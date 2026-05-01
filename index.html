@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kazi Wahed | Mobile App Developer</title>
+  <meta name="description" content="Portfolio of Kazi Wahed, a mobile app developer working with Kotlin, Flutter, React Native, MVVM, Hilt, and Jetpack Compose.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-soft: #0d1a2c;
+      --panel: rgba(14, 27, 45, 0.88);
+      --panel-strong: #10233d;
+      --line: rgba(166, 192, 255, 0.14);
+      --text: #eff4ff;
+      --muted: #a4b6d8;
+      --accent: #7cf0d4;
+      --accent-2: #5aa5ff;
+      --accent-3: #ffd86f;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --container: 1140px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Outfit", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124, 240, 212, 0.12), transparent 28%),
+        radial-gradient(circle at 85% 15%, rgba(90, 165, 255, 0.18), transparent 22%),
+        linear-gradient(180deg, #04101d 0%, #07111f 40%, #091727 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(var(--container), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 92px 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border: 1px solid rgba(124, 240, 212, 0.22);
+      border-radius: 999px;
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: rgba(124, 240, 212, 0.06);
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 14px rgba(124, 240, 212, 0.9);
+    }
+
+    h1, h2, h3, .brand {
+      font-family: "Syne", sans-serif;
+      letter-spacing: -0.03em;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.04;
+      margin-bottom: 12px;
+    }
+
+    p.lead {
+      max-width: 640px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(4, 13, 23, 0.68);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 78px;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+    }
+
+    .nav-action,
+    .button,
+    .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .nav-action,
+    .button {
+      background: linear-gradient(120deg, var(--accent), #8ff3ff);
+      color: #042131;
+      box-shadow: 0 18px 36px rgba(124, 240, 212, 0.18);
+    }
+
+    .button-secondary {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .nav-action:hover,
+    .button:hover,
+    .button-secondary:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      position: relative;
+      padding: 92px 0 64px;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 38px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 5.6rem);
+      line-height: 0.96;
+      margin-bottom: 20px;
+      max-width: 11ch;
+    }
+
+    .hero h1 .accent-line {
+      color: var(--accent);
+      display: block;
+    }
+
+    .hero-copy {
+      color: var(--muted);
+      max-width: 650px;
+      font-size: 1.08rem;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions,
+    .social-row,
+    .stack-pills,
+    .meta-grid,
+    .project-tags,
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 999px;
+      padding: 10px 14px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero-card,
+    .card,
+    .timeline-item,
+    .contact-panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -40px -60px auto;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(124, 240, 212, 0.28), transparent 72%);
+      pointer-events: none;
+    }
+
+    .avatar-shell {
+      position: relative;
+      min-height: 320px;
+      padding: 26px;
+      border-radius: 26px;
+      background:
+        linear-gradient(160deg, rgba(124, 240, 212, 0.14), rgba(90, 165, 255, 0.16)),
+        linear-gradient(180deg, #132843, #0b1a2d);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: grid;
+      place-items: center;
+      margin-bottom: 22px;
+    }
+
+    .avatar-ring {
+      width: 220px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      padding: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2), var(--accent-3));
+      animation: floaty 6s ease-in-out infinite;
+    }
+
+    .avatar-core {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(124, 240, 212, 0.16), transparent 40%),
+        linear-gradient(180deg, #0f223b, #091423);
+      display: grid;
+      place-items: center;
+      font-family: "Syne", sans-serif;
+      font-size: 4.4rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .floating-note {
+      position: absolute;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 0.85rem;
+      background: rgba(7, 17, 31, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+    }
+
+    .note-one {
+      top: 20px;
+      right: 18px;
+    }
+
+    .note-two {
+      bottom: 22px;
+      left: 16px;
+    }
+
+    .stats-grid,
+    .skills-grid,
+    .projects-grid,
+    .meta-grid,
+    .about-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 28px;
+    }
+
+    .stat {
+      padding: 22px 18px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Syne", sans-serif;
+      font-size: 2rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .section-heading {
+      margin-bottom: 34px;
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 28px;
+    }
+
+    .card h3 {
+      margin-bottom: 14px;
+      font-size: 1.3rem;
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    .projects-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .project-badge {
+      min-width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: #082038;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
+    .project-meta {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .project-tags span {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .project-link {
+      margin-top: auto;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+    }
+
+    .timeline-item {
+      padding: 28px;
+      position: relative;
+    }
+
+    .timeline-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .timeline-label {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .timeline-date {
+      color: var(--muted);
+    }
+
+    .timeline-item ul {
+      margin-top: 14px;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .timeline-item li + li {
+      margin-top: 8px;
+    }
+
+    .about-grid {
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: start;
+    }
+
+    .meta-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .meta-card {
+      padding: 22px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .meta-card h3 {
+      font-size: 0.92rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .meta-card p,
+    .meta-card li {
+      color: var(--muted);
+    }
+
+    .meta-card ul {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .contact-panel {
+      padding: 34px;
+      text-align: center;
+      background:
+        radial-gradient(circle at top, rgba(124, 240, 212, 0.16), transparent 40%),
+        var(--panel);
+    }
+
+    .contact-panel p {
+      max-width: 620px;
+      margin: 14px auto 26px;
+      color: var(--muted);
+    }
+
+    .site-footer {
+      padding: 28px 0 40px;
+      color: var(--muted);
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 22px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 980px) {
+      .hero-layout,
+      .about-grid,
+      .skills-grid,
+      .projects-grid,
+      .stats-grid,
+      .meta-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 18px 0;
+      }
+
+      .nav-links {
+        gap: 12px;
+      }
+
+      .hero {
+        padding-top: 70px;
+      }
+
+      .section {
+        padding: 76px 0;
+      }
+
+      .hero-card,
+      .card,
+      .timeline-item,
+      .contact-panel {
+        padding: 22px;
+      }
+
+      .avatar-ring {
+        width: 170px;
+      }
+
+      .floating-note {
+        position: static;
+        margin-top: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#top" class="brand">Kazi<span>Wahed</span></a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#journey">Journey</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="nav-action" href="./Kazi_Wahed_CV_93.pdf" download>Download CV</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-layout">
+        <div class="reveal is-visible">
+          <div class="eyebrow">Mobile Development Focus</div>
+          <h1>
+            Building practical
+            <span class="accent-line">mobile products</span>
+            across Android and cross-platform stacks.
+          </h1>
+          <p class="hero-copy">
+            Kazi Wahed is a developer focused on Kotlin, Flutter, React Native, MVVM, Jetpack Compose, Hilt, and Firebase. This portfolio is based on the public details available from the CV links and GitHub profile, shaped into a clean GitHub Pages site inspired by the reference portfolio structure.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#projects">View Projects</a>
+            <a class="button-secondary" href="./Kazi_Wahed_CV_93.pdf" download>Open Resume</a>
+          </div>
+          <div class="stack-pills" style="margin-top:18px;">
+            <span class="pill">Kotlin</span>
+            <span class="pill">Flutter</span>
+            <span class="pill">React Native</span>
+            <span class="pill">Jetpack Compose</span>
+            <span class="pill">MVVM</span>
+            <span class="pill">Firebase</span>
+          </div>
+        </div>
+
+        <aside class="hero-card reveal">
+          <div class="avatar-shell">
+            <div class="avatar-ring">
+              <div class="avatar-core">KW</div>
+            </div>
+            <div class="floating-note note-one">GitHub repos in Kotlin, Dart, and TypeScript</div>
+            <div class="floating-note note-two">Public profile signals a mobile-first stack</div>
+          </div>
+          <div class="social-row">
+            <a class="button-secondary" href="https://github.com/kaziwahed01-rgb" target="_blank" rel="noopener">GitHub</a>
+            <a class="button-secondary" href="https://www.linkedin.com/in/kazi-wahed-340597121" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </aside>
+      </div>
+
+      <div class="container stats-grid reveal">
+        <div class="stat">
+          <strong>8</strong>
+          <span>public repositories listed on GitHub</span>
+        </div>
+        <div class="stat">
+          <strong>3</strong>
+          <span>primary stacks shown publicly: Kotlin, Dart, TypeScript</span>
+        </div>
+        <div class="stat">
+          <strong>1</strong>
+          <span>education entry surfaced publicly: Academy of Technology</span>
+        </div>
+        <div class="stat">
+          <strong>2026</strong>
+          <span>latest public project activity visible on GitHub</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">Core Skills</div>
+          <h2>Mobile engineering with a practical, architecture-first toolkit.</h2>
+          <p class="lead">
+            These are the technologies and patterns that consistently show up across the public profile, CV links, and repositories.
+          </p>
+        </div>
+
+        <div class="skills-grid">
+          <article class="card reveal">
+            <h3>Android Native</h3>
+            <p>Hands-on focus with Kotlin, MVVM, Hilt, Dagger, RxJava, encrypted storage, and Jetpack Compose oriented app work.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Cross-Platform</h3>
+            <p>Flutter and React Native projects suggest comfort building shared-code mobile interfaces, flows, and UI experiments across stacks.</p>
+          </article>
+          <article class="card reveal">
+            <h3>App Architecture</h3>
+            <p>Repository themes point to modular thinking around state management, dependency injection, Firebase integration, and secure data handling.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">Featured Work</div>
+          <h2>Selected public projects from GitHub.</h2>
+          <p class="lead">
+            Since the CV PDF was not machine-readable, the project section is grounded in repositories currently visible on the public GitHub account.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          <article class="card project-card reveal">
+            <div class="project-top">
+              <div>
+                <h3>EncryptedFile Uses AES-256-GCM Keystore</h3>
+                <div class="project-meta">Kotlin</div>
+              </div>
+              <div class="project-badge">K</div>
+            </div>
+            <p>Security-focused Android exploration around encrypted file storage and keystore-backed protection patterns.</p>
+            <div class="project-tags">
+              <span>Kotlin</span>
+              <span>Android Security</span>
+              <span>Keystore</span>
+            </div>
+            <a class="project-link" href="https://github.com/kaziwahed01-rgb/EncryptedFile-uses-AES-256-GCM-Keystore" target="_blank" rel="noopener">Open repository</a>
+          </article>
+
+          <article class="card project-card reveal">
+            <div class="project-top">
+              <div>
+                <h3>React Native Credit Card Assessment</h3>
+                <div class="project-meta">TypeScript</div>
+              </div>
+              <div class="project-badge">RN</div>
+            </div>
+            <p>A React Native assessment project focused on form flow, card presentation, and cross-platform UI implementation.</p>
+            <div class="project-tags">
+              <span>React Native</span>
+              <span>TypeScript</span>
+              <span>UI</span>
+            </div>
+            <a class="project-link" href="https://github.com/kaziwahed01-rgb/react_native_credit_card_assessment" target="_blank" rel="noopener">Open repository</a>
+          </article>
+
+          <article class="card project-card reveal">
+            <div class="project-top">
+              <div>
+                <h3>Credit Card</h3>
+                <div class="project-meta">Dart / Flutter</div>
+              </div>
+              <div class="project-badge">F</div>
+            </div>
+            <p>A Flutter-based credit card app project that helps demonstrate layout, interaction, and mobile UI delivery in Dart.</p>
+            <div class="project-tags">
+              <span>Flutter</span>
+              <span>Dart</span>
+              <span>Mobile UI</span>
+            </div>
+            <a class="project-link" href="https://github.com/kaziwahed01-rgb/credit_card" target="_blank" rel="noopener">Open repository</a>
+          </article>
+
+          <article class="card project-card reveal">
+            <div class="project-top">
+              <div>
+                <h3>Dagger Hilt MVVM Example</h3>
+                <div class="project-meta">Kotlin</div>
+              </div>
+              <div class="project-badge">DI</div>
+            </div>
+            <p>An architecture example combining dependency injection with MVVM to keep Android code more maintainable and testable.</p>
+            <div class="project-tags">
+              <span>Dagger</span>
+              <span>Hilt</span>
+              <span>MVVM</span>
+            </div>
+            <a class="project-link" href="https://github.com/kaziwahed01-rgb/dagger-hilt-mvvm-example" target="_blank" rel="noopener">Open repository</a>
+          </article>
+
+          <article class="card project-card reveal">
+            <div class="project-top">
+              <div>
+                <h3>Age Calculater</h3>
+                <div class="project-meta">Kotlin</div>
+              </div>
+              <div class="project-badge">A</div>
+            </div>
+            <p>A simple app concept that reflects utility-focused Android development and fast implementation of everyday user tools.</p>
+            <div class="project-tags">
+              <span>Kotlin</span>
+              <span>Utility App</span>
+              <span>Android</span>
+            </div>
+            <a class="project-link" href="https://github.com/kaziwahed01-rgb/age-calculater" target="_blank" rel="noopener">Open repository</a>
+          </article>
+
+          <article class="card project-card reveal">
+            <div class="project-top">
+              <div>
+                <h3>Flutter Firebase Firestore Example</h3>
+                <div class="project-meta">Public repo</div>
+              </div>
+              <div class="project-badge">DB</div>
+            </div>
+            <p>A Firebase-oriented sample that signals work around cloud-connected app flows and data-backed mobile experiences.</p>
+            <div class="project-tags">
+              <span>Flutter</span>
+              <span>Firebase</span>
+              <span>Firestore</span>
+            </div>
+            <a class="project-link" href="https://github.com/kaziwahed01-rgb/flutter-firebase-firestore-example" target="_blank" rel="noopener">Open repository</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="journey">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">Journey</div>
+          <h2>Experience and learning milestones gathered from the public profile trail.</h2>
+          <p class="lead">
+            This section uses public LinkedIn search snippets plus repository history. It can be refined further any time you want to share the exact CV text.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <div class="timeline-meta">
+              <div>
+                <h3>Inadev India</h3>
+                <div class="timeline-label">Current public experience listing</div>
+              </div>
+              <div class="timeline-date">Kolkata, India</div>
+            </div>
+            <p>
+              Public search results show an active experience entry with Inadev India and a profile centered on mobile engineering technologies.
+            </p>
+            <ul>
+              <li>Stack keywords surfaced publicly include MVVM, Kotlin, RxJava, Dagger 2, Hilt, Flutter, Jetpack Compose, and React Native.</li>
+              <li>The portfolio presentation here frames that as a mobile developer profile rather than inventing an unsupported exact job title.</li>
+            </ul>
+          </article>
+
+          <article class="timeline-item reveal">
+            <div class="timeline-meta">
+              <div>
+                <h3>Academy of Technology</h3>
+                <div class="timeline-label">Education</div>
+              </div>
+              <div class="timeline-date">2016 - 2019</div>
+            </div>
+            <p>
+              The publicly indexed LinkedIn summary includes Academy of Technology as an education entry.
+            </p>
+          </article>
+
+          <article class="timeline-item reveal">
+            <div class="timeline-meta">
+              <div>
+                <h3>Recent Public Certifications</h3>
+                <div class="timeline-label">Learning Track</div>
+              </div>
+              <div class="timeline-date">2023 - 2025</div>
+            </div>
+            <p>
+              Search results also surfaced recent coursework in Flutter, React Native, Spring Boot, and Kotlin development, reinforcing a continuous learning pattern across mobile and backend-adjacent tooling.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="reveal">
+          <div class="eyebrow">About</div>
+          <h2>A portfolio foundation that can grow as more CV details are added.</h2>
+          <p class="lead" style="margin-bottom:18px;">
+            Right now this site emphasizes what is safely verifiable: public repositories, visible tech stack keywords, education snippet data, and your attached resume download. That keeps the page honest while still giving you a polished GitHub Pages presence.
+          </p>
+          <p class="lead">
+            When you want, we can upgrade this with an actual profile photo, exact work history, phone and email, real project descriptions from the CV, live app links, and a stronger personal story.
+          </p>
+        </div>
+
+        <div class="meta-grid reveal">
+          <article class="meta-card">
+            <h3>Public Links</h3>
+            <ul>
+              <li><a href="https://github.com/kaziwahed01-rgb" target="_blank" rel="noopener">github.com/kaziwahed01-rgb</a></li>
+              <li><a href="https://www.linkedin.com/in/kazi-wahed-340597121" target="_blank" rel="noopener">linkedin.com/in/kazi-wahed-340597121</a></li>
+              <li><a href="./Kazi_Wahed_CV_93.pdf" download>Download attached CV</a></li>
+            </ul>
+          </article>
+          <article class="meta-card">
+            <h3>Primary Focus</h3>
+            <p>Android, Flutter, React Native, architectural patterns, dependency injection, mobile UI, and secure app implementation.</p>
+          </article>
+          <article class="meta-card">
+            <h3>Portfolio Style</h3>
+            <p>Inspired by the reference page’s one-page flow: hero, skills, projects, experience, about, and a clear contact call-to-action.</p>
+          </article>
+          <article class="meta-card">
+            <h3>Best Next Upgrade</h3>
+            <p>Provide the CV text or a clearer PDF export and this page can be made fully personal instead of public-data-first.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-panel reveal">
+          <div class="eyebrow">Contact</div>
+          <h2>Ready to turn this into a complete personal brand page.</h2>
+          <p>
+            The site is already ready for GitHub Pages publishing. For direct outreach right now, the most reliable public channels available from the CV are LinkedIn, GitHub, and the downloadable resume.
+          </p>
+          <div class="contact-actions">
+            <a class="button" href="https://www.linkedin.com/in/kazi-wahed-340597121" target="_blank" rel="noopener">Connect on LinkedIn</a>
+            <a class="button-secondary" href="https://github.com/kaziwahed01-rgb" target="_blank" rel="noopener">View GitHub</a>
+            <a class="button-secondary" href="./Kazi_Wahed_CV_93.pdf" download>Download CV</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <div>© 2026 Kazi Wahed Portfolio</div>
+      <div>Built as a GitHub Pages single-file portfolio.</div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+  </script>
+</body>
+</html>
